@@ -1,13 +1,12 @@
 {
-    "mydevil": {
-        "email": "mariusz@gmail.com",
-        "website": "mydevil",
-        "password": "&#zo#2m2fZB2!zm"
-    }
-}{
-    "fb web": {
-        "email": "mar@wp.pl",
-        "website": "fb web",
-        "password": "gXg%zyY1+5)(JLFY0"
+    "new": {
+        "email": "mario",
+        "website": "new",
+        "password": "rnw3vT+fX5X(#7Xf7"
+    },
+    "new web": {
+        "email": "email@gmail.com",
+        "website": "new web",
+        "password": "dUVIIY#X5y1%"
     }
 }
