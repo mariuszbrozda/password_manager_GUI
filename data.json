@@ -13,5 +13,10 @@
         "email": "mario sdodf",
         "website": "data web",
         "password": "x3I6DI7MxR(o5#*a!"
+    },
+    "test": {
+        "email": "testmail",
+        "website": "test",
+        "password": "G8T(47tou3c+yTZ"
     }
 }

@@ -27,7 +27,6 @@ def generate_password():
 
 
 
-
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save():
 
@@ -67,7 +66,18 @@ def save():
 
 
 
+def search():
+    website = website_entry.get()
 
+    with open('data.json', 'r') as read_json:
+        read_data = json.load(read_json)
+        search_password = read_data[website]['password']
+        search_email = read_data[website]['email']
+        password_entry.insert(END, search_password)
+        email_entry.insert(END, search_email)
+
+
+print(search)
 # ---------------------------- UI SETUP ------------------------------- #
 
 window = Tk()
@@ -88,7 +98,7 @@ password_label = Label(text="Password:")
 password_label.grid(row=3, column=0)
 
 #Entries
-website_entry = Entry(width=35)
+website_entry = Entry(width=21)
 website_entry.grid(row=1, column=1, columnspan=2)
 website_entry.focus()
 email_entry = Entry(width=35)
@@ -99,7 +109,10 @@ password_entry.grid(row=3, column=1)
 
 # Buttons
 generate_password_button = Button(text="Generate Password", command=generate_password)
-generate_password_button.grid(row=3, column=2)
+generate_password_button.grid(row=3, column=2, columnspan=2)
+
+search_button = Button(text="Search", command=search, width=13)
+search_button.grid(row=1, column=2, columnspan=2)
 add_button = Button(text="Add", width=36, command=save)
 add_button.grid(row=4, column=1, columnspan=2)
 
