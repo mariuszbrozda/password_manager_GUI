@@ -80,6 +80,11 @@ def search():
         if new_website:
             generate_password()
             messagebox.showwarning(title="Add email", message=f"Please add email adress. ")
+    except KeyError:
+        new_website = messagebox.askokcancel(title="Oops", message=f"Sorry, there is no website with that name. \n Do you want to add {website} first ")
+        if new_website:
+            generate_password()
+            messagebox.showwarning(title="Add email", message=f"Please add email adress. ")
     else:
         password_entry.insert(END, search_password)
         email_entry.insert(END, search_email)
@@ -89,40 +94,54 @@ def search():
 
 # ---------------------------- UI SETUP ------------------------------- #
 
+
 window = Tk()
 window.title("Password Manager")
-window.config(padx=50, pady=50)
+window.config(padx=0, pady=0, bd=0)
+window.geometry('650x450')
 
-canvas = Canvas(height=200, width=200)
-logo_img = PhotoImage(file="../password_manager_pyhton/logo.png")
-canvas.create_image(140, 100, image=logo_img)
-canvas.grid(row=0, column=1)
+
+# Background
+img = PhotoImage(file="../password_manager_pyhton/locker-bg.png")
+bg = Label(window, image=img, bd=0, highlightthickness=1)
+bg.grid(row=0, column=0)
 
 #Labels
-website_label = Label(text="Website:")
-website_label.grid(row=1, column=0)
-email_label = Label(text="Email/Username:")
-email_label.grid(row=2, column=0)
-password_label = Label(text="Password:")
-password_label.grid(row=3, column=0)
+website_label = Label(text="Website:", relief='flat', font=('Helvetica', 14, ),
+                      padx=2, pady=2, fg='white', bd=1, bg='SkyBlue4', highlightthickness=0, highlightbackground='green')
+website_label.place(x=306, y=230)
+
+email_label = Label(text="Email/Username:", relief='flat', font=('Helvetica', 14, ),
+                      padx=2, pady=2, fg='white',bd=1, bg='SkyBlue4', highlightthickness=0, )
+email_label.place( x=305, y=261)
+
+password_label = Label( text="Password:", relief='flat', font=('Helvetica', 14, ),
+                      padx=2, pady=2, fg='white',bd=1, bg='SkyBlue4', highlightthickness=0,)
+password_label.place( x=305, y=292)
 
 #Entries
-website_entry = Entry(width=21)
-website_entry.grid(row=1, column=1)
+website_entry = Entry(width=16,  font=('Helvetica', 15, ),
+                       fg='white',bd=0, bg='SkyBlue4',highlightbackground='SkyBlue4', highlightthickness=2, highlightcolor='white')
+website_entry.place(x=377, y=231)
 website_entry.focus()
-email_entry = Entry(width=35)
-email_entry.grid(row=2, column=1, columnspan=2)
 
-password_entry = Entry(width=21)
-password_entry.grid(row=3, column=1)
+email_entry = Entry(width=18, font=('Helvetica', 15, ),
+                       fg='white',bd=0, bg='SkyBlue4',highlightbackground='SkyBlue4', highlightthickness=2, highlightcolor='white',)
+email_entry.place(x=432, y=262)
+
+password_entry = Entry( width=23, font=('Helvetica', 15, ),
+                       fg='white',bd=0, bg='SkyBlue4',highlightbackground='SkyBlue4', highlightthickness=2, highlightcolor='white')
+password_entry.place( x=389, y=293)
 
 # Buttons
-generate_password_button = Button(text="Generate Password", command=generate_password)
-generate_password_button.grid(row=3, column=2, columnspan=2)
 
-search_button = Button(text="Search", command=search, width=13)
-search_button.grid(row=1, column=2)
-add_button = Button(text="Add", width=36, command=save)
-add_button.grid(row=4, column=1, columnspan=2)
+generate_password_button = Button( text="Generate Password", command=generate_password, relief='sunken', font=('Helvetica', 15, 'bold'), bg='SkyBlue4',)
+generate_password_button.place( x=305, y=325)
+
+search_button = Button( text="Search", relief='sunken', command=search, width=7, font=('Helvetica', 15, 'bold' ),)
+search_button.place( x=532, y=231)
+
+add_button = Button( text="Add", command=save, relief='sunken',  width=14, font=('Helvetica', 15, 'bold'),)
+add_button.place(x=472, y=325)
 
 window.mainloop()
