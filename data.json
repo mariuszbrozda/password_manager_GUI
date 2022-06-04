@@ -1,17 +1,7 @@
 {
-    "FACEBOOK": {
-        "email": "EMAIL@WP.PL",
-        "website": "FACEBOOK",
-        "password": "(vqh5)l9l47PZcm"
-    },
-    "WP": {
-        "email": "MAIL@PL",
-        "website": "WP",
-        "password": "HASLO"
-    },
-    "Facebook": {
-        "email": "mariusz@gmail.dublin.com",
-        "website": "Facebook",
-        "password": "M9#K6(eC%UUxF95"
+    "website": {
+        "email": "email",
+        "website": "website",
+        "password": "b4O0R1mFa#&o$zgk"
     }
 }

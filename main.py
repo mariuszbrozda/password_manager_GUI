@@ -60,6 +60,7 @@ def save():
             with open("data.json", "w") as data_file:
                 # Saving updated data
                 json.dump(data, data_file, indent=4)
+                messagebox.showinfo(title="Message", message="Website added")
         finally:
                website_entry.delete(0, END)
                password_entry.delete(0, END)
@@ -81,14 +82,39 @@ def search():
             generate_password()
             messagebox.showwarning(title="Add email", message=f"Please add email adress. ")
     except KeyError:
-        new_website = messagebox.askokcancel(title="Oops", message=f"Sorry, there is no website with that name. \n Do you want to add {website} first ")
+        new_website = messagebox.askokcancel(title="Oops", message=f"No details for website. \n Do you want to add {website} first ")
         if new_website:
             generate_password()
-            messagebox.showwarning(title="Add email", message=f"Please add email adress. ")
+            messagebox.showinfo(title="Fill empty fields", message=f"Please fill all fields. ")
+    except SyntaxError:
+        new_website = messagebox.askokcancel(title=f"Oops",
+                                             message=f"No details for website. \n search error ")
+        if new_website:
+            generate_password()
+            messagebox.showinfo(title="Fill empty fields", message=f"Please fill all fields. ")
+            pass
     else:
         password_entry.insert(END, search_password)
         email_entry.insert(END, search_email)
         messagebox.showinfo(title=website, message=f"Email: {search_email} \n Password: {search_password} \n ")
+
+
+
+def delete():
+    website = website_entry.get()
+    with open('data.json', 'r') as read_json:
+        data = json.load(read_json)
+        data.pop(website)
+
+        with open('data.json', 'w') as new_data:
+            json.dump(data, new_data, indent=4)
+            messagebox.showinfo(title='Success', message=f"{website} was deleted successfully \n ")
+
+
+
+
+
+
 
 
 
@@ -135,13 +161,16 @@ password_entry.place( x=389, y=293)
 
 # Buttons
 
-generate_password_button = Button( text="Generate Password", command=generate_password, relief='sunken', font=('Helvetica', 15, 'bold'), bg='SkyBlue4',)
-generate_password_button.place( x=305, y=325)
+generate_password_button = Button( text="Generate Password", width=31, command=generate_password, relief='sunken', font=('Helvetica', 15, 'bold'), bg='SkyBlue4',)
+generate_password_button.place( x=310, y=325)
 
 search_button = Button( text="Search", relief='sunken', command=search, width=7, font=('Helvetica', 15, 'bold' ),)
 search_button.place( x=532, y=231)
 
-add_button = Button( text="Add", command=save, relief='sunken',  width=14, font=('Helvetica', 15, 'bold'),)
-add_button.place(x=472, y=325)
+delete_button = Button( text="Delete", relief='sunken', command=delete, width=15, font=('Helvetica', 15, 'bold' ),)
+delete_button.place(x=310, y=355)
+
+add_button = Button( text="Add/Update", command=save, relief='sunken',  width=15, font=('Helvetica', 15, 'bold'),)
+add_button.place(x=455, y=355)
 
 window.mainloop()
