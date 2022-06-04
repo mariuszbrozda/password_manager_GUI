@@ -30,9 +30,9 @@ def generate_password():
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save():
 
-    website = website_entry.get()
-    email = email_entry.get()
-    password = password_entry.get()
+    website = website_entry.get().lower()
+    email = email_entry.get().lower()
+    password = password_entry.get().lower()
     new_data = {
         website:{
             'email': email,
@@ -60,7 +60,7 @@ def save():
             with open("data.json", "w") as data_file:
                 # Saving updated data
                 json.dump(data, data_file, indent=4)
-                messagebox.showinfo(title="Message", message="Website added")
+                messagebox.showinfo(title="Message", message="Website added successfully")
         finally:
                website_entry.delete(0, END)
                password_entry.delete(0, END)
@@ -71,16 +71,17 @@ def save():
 def search():
 
     try:
-        website = website_entry.get()
+        website = website_entry.get().lower()
         with open('data.json', 'r') as read_json:
             read_data = json.load(read_json)
+            search_website = read_data[website]['website']
             search_password = read_data[website]['password']
             search_email = read_data[website]['email']
     except FileNotFoundError:
         new_website = messagebox.askokcancel(title="Oops", message=f"Sorry, there is no password saved for ' {website} ' \n Do you want to add {website} first ")
         if new_website:
             generate_password()
-            messagebox.showwarning(title="Add email", message=f"Please add email adress. ")
+            messagebox.showinfo(title="Add email", message=f"Please add email adress. ")
     except KeyError:
         new_website = messagebox.askokcancel(title="Oops", message=f"No details for website. \n Do you want to add {website} first ")
         if new_website:
@@ -94,6 +95,8 @@ def search():
             messagebox.showinfo(title="Fill empty fields", message=f"Please fill all fields. ")
             pass
     else:
+        website_entry.delete(0, END)
+        website_entry.insert(END, search_website.capitalize())
         password_entry.insert(END, search_password)
         email_entry.insert(END, search_email)
         messagebox.showinfo(title=website, message=f"Email: {search_email} \n Password: {search_password} \n ")
@@ -101,7 +104,7 @@ def search():
 
 
 def delete():
-    website = website_entry.get()
+    website = website_entry.get().lower()
     with open('data.json', 'r') as read_json:
         data = json.load(read_json)
         data.pop(website)
