@@ -113,6 +113,10 @@ def delete():
             json.dump(data, new_data, indent=4)
             messagebox.showinfo(title='Success', message=f"{website} was deleted successfully \n ")
 
+def clear_form():
+    website_entry.delete(0, END)
+    password_entry.delete(0, END)
+    email_entry.delete(0, END)
 
 
 
@@ -160,7 +164,7 @@ email_entry.place(x=432, y=262)
 
 password_entry = Entry( width=23, font=('Helvetica', 15, ),
                        fg='white',bd=0, bg='SkyBlue4',highlightbackground='SkyBlue4', highlightthickness=2, highlightcolor='white')
-password_entry.place( x=389, y=293)
+password_entry.place( x=387, y=293)
 
 # Buttons
 
@@ -175,5 +179,8 @@ delete_button.place(x=310, y=355)
 
 add_button = Button( text="Add/Update", command=save, relief='sunken',  width=15, font=('Helvetica', 15, 'bold'),)
 add_button.place(x=455, y=355)
+
+clear_button = Button( text="Clear", command=clear_form, relief='sunken',  width=31, font=('Helvetica', 15, 'bold'),)
+clear_button.place(x=310, y=384)
 
 window.mainloop()
